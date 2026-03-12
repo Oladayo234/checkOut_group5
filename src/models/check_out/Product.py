@@ -23,27 +23,36 @@ class Product:
         self.quantity = self.__validate_quantity(quantity)
 
     def __validate_price(self, price):
-        validate_numeric_value = self.__validate_numeric_value(price)
-        if validate_numeric_value < 0:
+        self.__validate_numeric_value(price)
+        if price < 0:
             raise ValueError("Price cannot be negative")
         return price
 
     def __validate_quantity(self, quantity):
-        validate_numeric_value = self.__validate_numeric_value(quantity)
-        if validate_numeric_value < 0:
+        self.__validate_numeric_value(quantity)
+        if quantity < 0:
             raise ValueError("Quantity cannot be negative")
         return quantity
 
     def __validate_name(self, name):
+        if not isinstance(name, str):
+            raise TypeError("Name must be a string")
         if name.strip() == "":
             raise ValueError("Name cannot be empty")
-        return name
+        return name.strip()
 
     def __validate_numeric_value(self, value):
         if not isinstance(value, (int, float)):
-            raise ValueError("Value must be a digit")
-        return (value)
+            raise TypeError("Value must be a number")
 
+    def get_total_value(self):
+        return self.price * self.quantity
 
+    def __str__(self):
+        return f"{self.name} - N{self.price} x {self.quantity} = N{self.get_total_value()}"
 
+    def __eq__(self, other):
+        if isinstance(other, Product):
+            return self.name.lower() == other.name.lower()
+        return False
 
