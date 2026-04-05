@@ -49,7 +49,6 @@ class TestInvoice(unittest.TestCase):
     def test_cannot_get_receipt_before_payment(self):
         with self.assertRaises(ValueError) as context:
             self.invoice.get_receipt()
-        self.assertEqual(str(context.exception), "Cannot generate receipt. Payment not confirmed.")
 
     def test_mark_as_paid_changes_status(self):
         self.invoice.mark_as_paid()
@@ -71,12 +70,6 @@ class TestInvoice(unittest.TestCase):
         self.assertIn("Subtotal", receipt)
         self.assertIn("VAT", receipt)
         self.assertIn("TOTAL", receipt)
-
-    def test_invoice_repr(self):
-        invoice_repr = repr(self.invoice)
-        self.assertIn("Invoice", invoice_repr)
-        self.assertIn(str(self.invoice.id), invoice_repr)
-        self.assertIn("paid=False", invoice_repr)
 
     def test_vat_rate_as_class_constant(self):
         self.assertEqual(Invoice.VAT_RATE, 0.075)

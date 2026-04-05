@@ -13,15 +13,6 @@ class Product:
     def get_quantity(self):
         return self.quantity
 
-    def set_name(self, name):
-        self.name = self.__validate_name(name)
-
-    def set_price(self, price):
-        self.price = self.__validate_price(price)
-
-    def set_quantity(self, quantity):
-        self.quantity = self.__validate_quantity(quantity)
-
     def __validate_price(self, price):
         self.__validate_numeric_value(price)
         if price < 0:

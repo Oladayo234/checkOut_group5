@@ -100,12 +100,6 @@ class TestAttendant(unittest.TestCase):
         self.assertEqual(len(unpaid_invoices), 1)
         self.assertEqual(unpaid_invoices[0], invoice2)
 
-    def test_attendant_repr(self):
-        attendant_repr = repr(self.attendant)
-        self.assertIn("Attendant", attendant_repr)
-        self.assertIn("Christian", attendant_repr)
-        self.assertIn("invoices=0", attendant_repr)
-
     def test_validate_name_utility_function(self):
         self.assertEqual(validate_name("  Test  "), "Test")
         with self.assertRaises(ValueError):

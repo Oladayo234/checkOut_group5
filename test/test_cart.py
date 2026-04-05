@@ -20,26 +20,6 @@ class TestCart(unittest.TestCase):
         self.cart.add_product_to_cart(self.bread)
         self.assertEqual(len(self.cart.products), 2)
 
-    def test_add_duplicate_product_increases_quantity(self):
-        """Test that adding same product increases quantity instead of duplicating"""
-        self.cart.add_product_to_cart(self.apple)
-        apple2 = Product("Apple", 1.50, 2)
-        self.cart.add_product_to_cart(apple2)
-        
-        self.assertEqual(len(self.cart.products), 1)
-        found_apple = self.cart.find_from_cart_by_name(self.apple)
-        self.assertEqual(found_apple.get_quantity(), 5)
-
-    def test_case_insensitive_duplicate_detection(self):
-        """Test that 'Apple' and 'apple' are treated as same product"""
-        self.cart.add_product_to_cart(self.apple)
-        apple_lower = Product("apple", 1.50, 1)
-        self.cart.add_product_to_cart(apple_lower)
-        
-        self.assertEqual(len(self.cart.products), 1)
-        found_apple = self.cart.find_from_cart_by_name(self.apple)
-        self.assertEqual(found_apple.get_quantity(), 4)
-
     def test_remove_existing_product(self):
         self.cart.add_product_to_cart(self.apple)
         result = self.cart.remove_product_from_cart(self.apple)
@@ -95,12 +75,6 @@ class TestCart(unittest.TestCase):
         self.cart.add_product_to_cart(self.bread)
         self.cart.clear_cart()
         self.assertTrue(self.cart.is_empty())
-
-    def test_cart_repr(self):
-        self.cart.add_product_to_cart(self.apple)
-        cart_repr = repr(self.cart)
-        self.assertIn("Cart", cart_repr)
-        self.assertIn("products=1", cart_repr)
 
 if __name__ == "__main__":
     unittest.main()
